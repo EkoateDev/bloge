@@ -16,17 +16,13 @@ class UserController extends Controller
     /**
 
      * Display a listing of the resource.
-
      *
-
      * @return \Illuminate\Http\Response
-
      */
 
     public function index(Request $request)
     {
         $data = User::orderBy('id', 'DESC')->paginate(5);
-
         return view('users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
 
@@ -35,19 +31,14 @@ class UserController extends Controller
     /**
 
      * Show the form for creating a new resource.
-
      *
-
      * @return \Illuminate\Http\Response
-
      */
 
     public function create()
     {
-
         $roles = Role::pluck('name', 'name')->all();
         return view('users.create', compact('roles'));
-
     }
 
     /**
@@ -64,14 +55,11 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
-
-            'name' => 'required',
+            'username' => 'required|unique:users',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required',
-
         ]);
 
         $input = $request->all();
@@ -82,7 +70,6 @@ class UserController extends Controller
 
         return redirect()->route('users.index')
             ->with('success', 'User created successfully');
-
     }
 
     /**
@@ -104,15 +91,10 @@ class UserController extends Controller
     }
 
     /**
-
      * Show the form for editing the specified resource.
-
      *
-
      * @param  int  $id
-
      * @return \Illuminate\Http\Response
-
      */
 
     public function edit($id)
@@ -140,7 +122,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-
             'username' => 'required|unique:users,string',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',

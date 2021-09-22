@@ -47,8 +47,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
 
             <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control']) !!}
+                <strong>Username:</strong>
+                {!! Form::text('username', null, ['placeholder' => 'Username', 'class' => 'form-control']) !!}
             </div>
 
         </div>
