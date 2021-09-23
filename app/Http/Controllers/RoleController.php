@@ -81,6 +81,7 @@ class RoleController extends Controller
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
+
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');
 
@@ -104,6 +105,7 @@ class RoleController extends Controller
         $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
             ->where("role_has_permissions.role_id", $id)
             ->get();
+            
         return view('roles.show', compact('role', 'rolePermissions'));
 
     }
